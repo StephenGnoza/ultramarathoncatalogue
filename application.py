@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def HelloWorld():
-    return "Hello World"
+    return render_template('distances.html')
 
 if __name__ == '__main__':
     app.debug = True
