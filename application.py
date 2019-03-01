@@ -1,8 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+#import for basic webpage, database
+from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, User, State, Month, RaceCat, RaceItem
-
+#import for login
+from oauth2client.client import flow_from_clientsecrets
+from oauth2client.client import FlowExchangeError
+import httplib2
 
 app = Flask(__name__)
 
