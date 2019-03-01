@@ -60,3 +60,10 @@ RaceCat = [
 ]
 session.bulk_save_objects(RaceCat)
 session.commit()
+
+#add initial races
+NewRace = RaceItem(name="Black Canyon Ultras 100K", description="Run the trails in the beautiful Black Canyon of Arizona",
+                    distance="100", units="km", utmb_points="3", wser_qualifier="Y", race_website="aravaiparunning.com",
+                    state_id="1", month_id="2", race_cat_id="3")
+session.add(NewRace)
+session.commit()

@@ -6,3 +6,10 @@
   clear:both;
   margin-top: 20px;
 }
+
+.race_block{
+  width: 100%;
+  height: 25px;
+  padding: 10px;
+  background-color: #eeeeee;
+}
