@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -69,7 +69,7 @@ class RaceItem(Base):
     state = relationship(State)
     month_id = Column(Integer, ForeignKey('month.name'))
     month = relationship(Month)
-    race_website = = Column(String(250))
+    race_website = Column(String(250))
 
     #JSON
     @property

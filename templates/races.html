@@ -1,0 +1,10 @@
+{% extends "catalogue.html" %}
+{% block content %}
+{% include "header.html" %}
+<h2>{{ racecat.name}}</h2>:
+{% for race in races %}
+<a href="race/{{ race.id }}">{{ race.name }}</a>
+{% endfor %}
+{% include "footer.html" %}
+
+{% endblock %}

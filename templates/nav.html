@@ -1,3 +1,20 @@
 <div class="navigation">
 
+{% for racecat in racecats %}
+  <a href="/racecat/{{ racecat.id }}">{{ racecat.name}}</a>
+{% endfor %}
+<form method="post">
+    Choose by Month:
+    <select type="select" name="filter_month">
+    {% for month in months %}
+    <option>{{ month.name }}</option>
+    {% endfor %}
+    </select>
+    Choose by State:
+    <select type="select" name="filter_states">
+    {% for state in states %}
+    <option>{{ state.name }}</option>
+    {% endfor %}
+    </select>
+</form>
 </div>
