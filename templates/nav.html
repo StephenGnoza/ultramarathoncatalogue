@@ -1,6 +1,10 @@
 <div class="navigation">
-  Welcome {{ username }}
+  Welcome {{ session.username }}
+  {%if 'username' not in session %}
 <a href="/login">Log in</a>
+  {% else %}
+  <a href="/logout">Log Out</a>
+{% endif %}
 {% for racecat in racecats %}
   <a href="/racecat/{{ racecat.id }}">{{ racecat.name}}</a>
 {% endfor %}
