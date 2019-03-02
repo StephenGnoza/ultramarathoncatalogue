@@ -1,5 +1,6 @@
 <div class="navigation">
-
+  Welcome {{ username }}
+<a href="/login">Log in</a>
 {% for racecat in racecats %}
   <a href="/racecat/{{ racecat.id }}">{{ racecat.name}}</a>
 {% endfor %}
