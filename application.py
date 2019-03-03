@@ -41,6 +41,7 @@ def LoginPage():
     login_session['state'] = state
     return render_template('login.html', months=months, states=states, racecats=racecats, STATE=state)
 
+#validate and get info from Google
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     # Validate state token
@@ -134,8 +135,6 @@ def gconnect():
     return output
 
 # User Helper Functions
-
-
 def createUser(login_session):
     newUser = User(name=login_session['username'], email=login_session[
                    'email'], picture=login_session['picture'])
@@ -144,11 +143,9 @@ def createUser(login_session):
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
-
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user_id).one()
     return user
-
 
 def getUserID(email):
     try:
@@ -190,7 +187,6 @@ def gdisconnect():
         del login_session['picture']
         return response
 
-
 #default page
 @app.route('/')
 def HomePage():
@@ -219,7 +215,6 @@ def addRacePage():
         session.add(newItem)
         session.commit()
         return redirect(url_for('RacePage', race_id=request.form['race_add_racecat']))
-        #return render_template('races.html', months=months, states=states, racecats=racecats, racecat=request.form['race_add_racecat'])
     else:
         return render_template('race_add.html', months=months, states=states, racecats=racecats)
 
@@ -230,7 +225,7 @@ def editRacePage(race_id):
     if 'username' not in login_session:
         return redirect('/login')
     if login_session['user_id'] != race.user_id:
-        return "<script>function myFunction() {alert('You are not authorized to edit this race.');}</script><body onload='myFunction()'>"
+        return redirect(url_for('RacePage', race_id=race_id, error="edit_error"))
     if request.method == 'POST':
         editRace = session.query(RaceItem).filter_by(id=race_id).one()
         editRace.name = request.form['race_edit_name']
@@ -244,9 +239,24 @@ def editRacePage(race_id):
         session.add(editRace)
         session.commit()
         return redirect(url_for('RacePage', race_id=race_id))
-        #return render_template('race.html', months=months, states=states, racecats=racecats, race=race_id)
     else:
         return render_template('race_edit.html', months=months, states=states, racecats=racecats, race=race)
+
+#delete race
+@app.route('/race/delete/<int:race_id>', methods=['GET', 'POST'])
+def deleteRacePage(race_id):
+    race = session.query(RaceItem).filter_by(id=race_id).one()
+    if 'username' not in login_session:
+        return redirect('/login')
+    if login_session['user_id'] != race.user_id:
+        return redirect(url_for('RaceCatList', race_cat_id=race.race_cat_id, error="delete_error"))
+    if request.method == 'POST':
+        deleteRace = session.query(RaceItem).filter_by(id=race_id).one()
+        session.delete(deleteRace)
+        session.commit()
+        return redirect(url_for('RaceCatList', race_cat_id=race.race_cat_id))
+    else:
+        return render_template('race_delete.html', months=months, states=states, racecats=racecats, race=race)
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'

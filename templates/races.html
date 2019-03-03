@@ -6,9 +6,8 @@
 <div class="race_block">
 <a href="../race/{{ race.id }}">{{ race.name }}</a>
 Category: {{race.race_cat.name}}
-
 {% if race.user_id == session.user_id %}
-<a href="/race/edit/{{race.id}}">Edit</a>
+<a href="/race/edit/{{race.id}}">Edit</a> | <a href="/race/delete/{{race.id}}">Delete</a>
 {% endif %}
 </div>
 {% endfor %}
