@@ -218,9 +218,35 @@ def addRacePage():
         newItem = RaceItem(name=request.form['race_add_name'], race_cat_id=request.form['race_add_racecat'], race_website=request.form['race_add_race_website'], description=request.form['race_add_description'], utmb_points=request.form['race_add_utmbpoints'], wser_qualifier=request.form['race_add_wser'], month_id=request.form['race_add_month'], state_id=request.form['race_add_state'], user_id=login_session['user_id'])
         session.add(newItem)
         session.commit()
-        return render_template('races.html', months=months, states=states, racecats=racecats, racecat=request.form['race_add_racecat'])
+        return redirect(url_for('RacePage', race_id=request.form['race_add_racecat']))
+        #return render_template('races.html', months=months, states=states, racecats=racecats, racecat=request.form['race_add_racecat'])
     else:
         return render_template('race_add.html', months=months, states=states, racecats=racecats)
+
+#edit race
+@app.route('/race/edit/<int:race_id>', methods=['GET', 'POST'])
+def editRacePage(race_id):
+    race = session.query(RaceItem).filter_by(id=race_id).one()
+    if 'username' not in login_session:
+        return redirect('/login')
+    if login_session['user_id'] != race.user_id:
+        return "<script>function myFunction() {alert('You are not authorized to edit this race.');}</script><body onload='myFunction()'>"
+    if request.method == 'POST':
+        editRace = session.query(RaceItem).filter_by(id=race_id).one()
+        editRace.name = request.form['race_edit_name']
+        editRace.race_cat_id = request.form['race_edit_racecat']
+        editRace.race_website = request.form['race_edit_race_website']
+        editRace.description = request.form['race_edit_description']
+        editRace.utmb_points = request.form['race_edit_utmbpoints']
+        editRace.wser_qualifier = request.form['race_edit_wser']
+        editRace.month_id = request.form['race_edit_month']
+        editRace.state_id = request.form['race_edit_state']
+        session.add(editRace)
+        session.commit()
+        return redirect(url_for('RacePage', race_id=race_id))
+        #return render_template('race.html', months=months, states=states, racecats=racecats, race=race_id)
+    else:
+        return render_template('race_edit.html', months=months, states=states, racecats=racecats, race=race)
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
