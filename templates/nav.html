@@ -1,13 +1,20 @@
 <div class="navigation">
-  Welcome {{ session.username }}
-  {%if 'username' not in session %}
-<a href="/login">Log in</a>
-  {% else %}
-  <a href="/logout">Log Out</a>
-{% endif %}
-{% for racecat in racecats %}
-  <a href="/racecat/{{ racecat.id }}">{{ racecat.name}}</a>
-{% endfor %}
+
+  <div class="nav_race_cat">
+    <a href="/" class="navlink">All Races</a>
+    {% for racecat in racecats %}
+      | <a href="/racecat/{{ racecat.id }}" class="navlink">{{ racecat.name}}</a>
+    {% endfor %}
+  </div>
+
+  {%if 'user_id' in session %}
+    <div class="nav_add_race">
+      <a href="/race/add" class="navlink">Add Race</a>
+    </div>
+  {% endif %}
+
+
+<!--
 <form method="post">
     Choose by Month:
     <select type="select" name="filter_month">
@@ -22,4 +29,5 @@
     {% endfor %}
     </select>
 </form>
+-->
 </div>

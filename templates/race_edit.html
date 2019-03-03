@@ -1,6 +1,5 @@
 {% extends "catalogue.html" %}
 {% block content %}
-{% include "header.html" %}
 <h2>Edit {{race.name}}</h2>
 
 <form method="post">
@@ -67,7 +66,4 @@
       <input type="submit" name="race_edit_submit" value="Save Changes">
     </div>
 </form>
-
-{% include "footer.html" %}
-
 {% endblock %}

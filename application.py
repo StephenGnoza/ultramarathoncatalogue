@@ -50,8 +50,7 @@ months = session.query(Month).order_by(Month.id)
 states = session.query(State).order_by(State.id)
 racecats = session.query(RaceCat).order_by(RaceCat.name)
 
-
-#login Page
+#Login Page
 @app.route('/login')
 def LoginPage():
     #create token
@@ -192,9 +191,10 @@ def gdisconnect():
         del login_session['username']
         del login_session['email']
         del login_session['picture']
+        del login_session['user_id']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
         response.headers['Content-Type'] = 'application/json'
-        return render_template('distances.html', months=months, states=states, racecats=racecats)
+        return render_template('races_all.html', months=months, states=states, racecats=racecats)
         #return response
     else:
         response = make_response(json.dumps('Failed to revoke token for given user.', 400))
@@ -204,12 +204,14 @@ def gdisconnect():
         del login_session['username']
         del login_session['email']
         del login_session['picture']
+        del login_session['user_id']
         return response
 
 #default page
 @app.route('/')
 def HomePage():
-    return render_template('distances.html', months=months, states=states, racecats=racecats)
+    races = session.query(RaceItem).all()
+    return render_template('races_all.html', months=months, states=states, racecats=racecats, races=races)
 
 #list races by category
 @app.route('/racecat/<int:race_cat_id>')

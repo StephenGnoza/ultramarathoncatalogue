@@ -1,0 +1,12 @@
+<div class="nav_userinfo">
+  {%if 'username' not in session %}
+    <a href="/login">Log in</a>
+  {% else %}
+    <div class="nav_userinfo_text">
+      Welcome {{ session.username }}! &nbsp; | &nbsp; <a href="/logout">Log Out</a>
+    </div>
+    <div class="nav_userinfo_photo">
+        <img src="{{session.picture}}" height="30">
+    </div>
+  {% endif %}
+</div>
