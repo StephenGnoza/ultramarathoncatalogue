@@ -77,14 +77,12 @@ class RaceItem(Base):
             'name': self.name,
             'description': self.description,
             'id': self.id,
-            'distance': self.distance,
-            'units': self.units,
-            'race_cat': self.race_cat,
+            'race_cat': self.race_cat_id,
             'utmb_points': self.utmb_points,
             'wser_qualifier': self.wser_qualifier,
             'race_website': self.race_website,
-            'state': self.state,
-            'month': self.month
+            'state': self.state_id,
+            'month': self.month_id
         }
 
 #create db

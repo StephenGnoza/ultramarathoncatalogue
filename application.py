@@ -26,6 +26,25 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+#JSON API
+#all races
+@app.route('/races/JSON')
+def RacesJSON():
+    races = session.query(RaceItem).all()
+    return jsonify(RaceItem=[i.serialize for i in races])
+
+#particular race
+@app.route('/race/<int:race_id>/JSON')
+def RaceJSON(race_id):
+    races = session.query(RaceItem).filter_by(id=race_id).all()
+    return jsonify(RaceItem=[i.serialize for i in races])
+
+#particular category
+@app.route('/racecat/<int:race_cat_id>/JSON')
+def RaceCatJSON(race_cat_id):
+    races = session.query(RaceItem).filter_by(race_cat_id=race_cat_id).all()
+    return jsonify(RaceItem=[i.serialize for i in races])
+
 # Make queries likely needed for every route
 months = session.query(Month).order_by(Month.id)
 states = session.query(State).order_by(State.id)
