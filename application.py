@@ -212,6 +212,8 @@ def RacePage(race_id):
 #add race
 @app.route('/race/add', methods=['GET', 'POST'])
 def addRacePage():
+    if 'username' not in login_session:
+        return redirect('/login')
     if request.method == 'POST':
         newItem = RaceItem(name=request.form['race_add_name'], race_cat_id=request.form['race_add_racecat'], race_website=request.form['race_add_race_website'], description=request.form['race_add_description'], utmb_points=request.form['race_add_utmbpoints'], wser_qualifier=request.form['race_add_wser'], month_id=request.form['race_add_month'], state_id=request.form['race_add_state'], user_id=login_session['user_id'])
         session.add(newItem)
