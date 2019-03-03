@@ -1,0 +1,73 @@
+{% extends "catalogue.html" %}
+{% block content %}
+{% include "header.html" %}
+<h2>Add New Race</h2>
+
+<form method="post">
+    <div class="form_row">
+    Name: <input type="text" name="race_add_name">
+    </div>
+
+    <div class="form_row">
+    Race Category:
+    <select type="select" name="race_add_racecat">
+    {% for racecat in racecats %}
+    <option value="{{racecat.id}}">{{ racecat.name }}</option>
+    {% endfor %}
+    </select>
+    </div>
+
+    <div class="form_row">
+    Race Website: <input type="text" name="race_add_race_website">
+    </div>
+
+    <div class="form_row">
+    Description: <textarea name="race_add_description" rows="8" cols="80"></textarea>
+    </div>
+
+    <div class="form_row">
+    UTMB Points:
+    <select name="race_add_utmbpoints">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    </div>
+
+    <div class="form_row">
+    Western States Qualifier?:
+    <select name="race_add_wser">
+      <option value="Y">Yes</option>
+      <option value="N">No</option>
+    </select>
+    </div>
+
+    <div class="form_row">
+    Race Month:
+    <select type="select" name="race_add_month">
+    {% for month in months %}
+    <option value="{{month.id}}">{{ month.name }}</option>
+    {% endfor %}
+    </select>
+    </div>
+
+    <div class="form_row">
+    Race State:
+    <select type="select" name="race_add_state">
+    {% for state in states %}
+    <option value="{{state.id}}">{{ state.name }}</option>
+    {% endfor %}
+    </select>
+    </div>
+
+    <div class="form_row">
+      <input type="submit" name="race_add_submit" value="Add">
+    </div>
+</form>
+
+{% include "footer.html" %}
+
+{% endblock %}

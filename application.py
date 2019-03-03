@@ -197,10 +197,10 @@ def HomePage():
     return render_template('distances.html', months=months, states=states, racecats=racecats)
 
 #list races by category
-@app.route('/racecat/<int:racecat_id>')
-def RaceCatList(racecat_id):
-    races = session.query(RaceItem).filter_by(id=racecat_id)
-    racecat = session.query(RaceCat).filter_by(id=racecat_id).one()
+@app.route('/racecat/<int:race_cat_id>')
+def RaceCatList(race_cat_id):
+    races = session.query(RaceItem).filter_by(race_cat_id=race_cat_id)
+    racecat = session.query(RaceCat).filter_by(id=race_cat_id).one()
     return render_template('races.html', months=months, states=states, racecats=racecats, races=races, racecat=racecat)
 
 #race page
@@ -209,6 +209,16 @@ def RacePage(race_id):
     race = session.query(RaceItem).filter_by(id=race_id).one()
     return render_template('race.html', months=months, states=states, racecats=racecats, race=race)
 
+#add race
+@app.route('/race/add', methods=['GET', 'POST'])
+def addRacePage():
+    if request.method == 'POST':
+        newItem = RaceItem(name=request.form['race_add_name'], race_cat_id=request.form['race_add_racecat'], race_website=request.form['race_add_race_website'], description=request.form['race_add_description'], utmb_points=request.form['race_add_utmbpoints'], wser_qualifier=request.form['race_add_wser'], month_id=request.form['race_add_month'], state_id=request.form['race_add_state'], user_id=login_session['user_id'])
+        session.add(newItem)
+        session.commit()
+        return render_template('races.html', months=months, states=states, racecats=racecats, racecat=request.form['race_add_racecat'])
+    else:
+        return render_template('race_add.html', months=months, states=states, racecats=racecats)
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'

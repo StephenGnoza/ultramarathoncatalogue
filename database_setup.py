@@ -57,8 +57,6 @@ class RaceItem(Base):
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
     description = Column(String(250))
-    units = Column(String(2))
-    distance = Column(Float)
     utmb_points = Column(String(5))
     wser_qualifier = Column(String(5))
     race_cat_id = Column(Integer, ForeignKey('race_cat.id'))

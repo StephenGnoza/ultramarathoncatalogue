@@ -1,3 +1,8 @@
+*{
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
 .container{
   width: 100%;
 }
@@ -12,4 +17,10 @@
   height: 25px;
   padding: 10px;
   background-color: #eeeeee;
+}
+
+.form_row{
+  clear:both;
+  width: 100%;
+  padding: 10px;
 }
