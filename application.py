@@ -215,7 +215,7 @@ def HomePage():
 def RaceCatList(race_cat_id):
     races = session.query(RaceItem).filter_by(race_cat_id=race_cat_id)
     racecat = session.query(RaceCat).filter_by(id=race_cat_id).one()
-    return render_template('races.html', months=months, states=states, racecats=racecats, races=races, racecat=racecat)
+    return render_template('races.html', months=months, states=states, racecats=racecats, races=races, racecat=racecat, race_cat_id=race_cat_id)
 
 #race page
 @app.route('/race/<int:race_id>')

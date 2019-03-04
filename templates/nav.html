@@ -1,10 +1,13 @@
 <div class="navigation">
 
   <div class="nav_race_cat">
-    <a href="/" class="navlink">All Races</a>
-    {% for racecat in racecats %}
-      | <a href="/racecat/{{ racecat.id }}" class="navlink">{{ racecat.name}}</a>
-    {% endfor %}
+    Filter by Category:
+    <select name="race_cat_list" onchange="document.location.href=this.value">
+      <option value="/">All</option>
+      {% for racecat in racecats %}
+        <option value="/racecat/{{ racecat.id }}" {% if racecat.id==race_cat_id %} selected {% endif %}>{{ racecat.name}}</option>
+      {% endfor %}
+    </select>
   </div>
 
   {%if 'user_id' in session %}
@@ -12,22 +15,4 @@
       <a href="/race/add" class="navlink">Add Race</a>
     </div>
   {% endif %}
-
-
-<!--
-<form method="post">
-    Choose by Month:
-    <select type="select" name="filter_month">
-    {% for month in months %}
-    <option>{{ month.name }}</option>
-    {% endfor %}
-    </select>
-    Choose by State:
-    <select type="select" name="filter_states">
-    {% for state in states %}
-    <option>{{ state.name }}</option>
-    {% endfor %}
-    </select>
-</form>
--->
 </div>
