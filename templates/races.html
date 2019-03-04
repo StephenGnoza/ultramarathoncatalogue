@@ -24,6 +24,6 @@
 </div>
 {% endfor %}
 {% if race is not in races %}
-<em>There are no {{racecat.name}} races yet!  <a href="/race/add">Add a Race</a> here!</em>
+<em>There are no {{racecat.name}} races yet! {% if 'user_id' in session %} <a href="/race/add">Add a Race</a> here!</em> {% endif %}
 {% endif %}
 {% endblock %}
