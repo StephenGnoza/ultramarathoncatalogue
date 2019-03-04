@@ -44,19 +44,19 @@ List of all races:
 
 ```sh
 http://localhost:5000/races/JSON
-``
+```
 
 List of races within a category:
 
 ```sh
 http://localhost:5000/racecat/<int:race_cat_id>/JSON
-``
+```
 
 A particular race:
 
 ```sh
 http://localhost:5000/race/<int:race_id>/JSON
-``
+```
 
 # Author
 
