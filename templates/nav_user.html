@@ -1,6 +1,8 @@
 <div class="nav_userinfo">
   {%if 'username' not in session %}
-    <a href="/login">Log in</a>
+    <div class="nav_userinfo_text">
+      <a href="/login">Log in</a>
+    </div>
   {% else %}
     <div class="nav_userinfo_text">
       Welcome {{ session.username }}! &nbsp; | &nbsp; <a href="/logout">Log Out</a>

@@ -13,37 +13,6 @@
   color: blue;
 }
 
-.header{
-  clear: both;
-  margin-bottom: 20px;
-  height: 50px;
-}
-
-.header_inner{
-  width: 90%;
-  margin: 0px auto;
-}
-
-.nav_race_cat{
-  width: 70%;
-  float: left;
-}
-
-.navlink, .navlink:visited, .navlink:hover{
-  color: blue;
-}
-
-.nav_add_race{
-  width: 25%;
-  float: right;
-  text-align: right;
-}
-
-.nav_userinfo{
-  width: 100%;
-  float: right;
-  text-align: right;
-}
 
 .super_nav{
   width: 100%;
@@ -55,6 +24,68 @@
   width: 90%;
   margin: 0px auto;
   color: white;
+  height: 30px;
+}
+
+.header{
+  clear: both;
+  height: 200px;
+  background-image: url('/static/banner-top.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+}
+
+.header_inner{
+  width: 90%;
+  margin: 0px auto;
+}
+
+.header_title{
+  height: 60px;
+}
+
+.header_title h1{
+  padding-top: 20px;
+  font-size: 36px;
+  color: white;
+}
+
+.nav{
+  clear:both;
+  width: 100%;
+  background: #666666;
+}
+
+.nav_inner{
+  width: 90%;
+  margin: 0px auto;
+  text-align: left;
+}
+
+.nav_race_cat{
+  width: 70%;
+  float: left;
+  padding-top: 10px;
+  color: white;
+}
+
+.navlink, .navlink:visited, .navlink:hover{
+  color: white;
+}
+
+.nav_add_race{
+  width: 25%;
+  float: right;
+  text-align: right;
+  padding-top: 10px;
+}
+
+.nav_userinfo{
+  display: block;
+  min-width: 50%;
+  float: right;
+  text-align: right;
 }
 
 .super_nav_inner a, a:hover, a:visited{
