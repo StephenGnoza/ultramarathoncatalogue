@@ -3,10 +3,24 @@
 <h2>All Races</h2>
 {% for race in races %}
 <div class="race_block">
-<a href="../race/{{ race.id }}">{{ race.name }}</a>
-{% if race.user_id == session.user_id %}
-<a href="/race/edit/{{race.id}}">Edit</a> | <a href="/race/delete/{{race.id}}">Delete</a>
-{% endif %}
+  <div class="race_block_race_name">
+    <a href="../race/{{ race.id }}">{{ race.name }}</a><br>
+  </div>
+  <div class="race_block_race_info">
+    Location: {{race.state.name}}<br>
+    Month: {{race.month.name}}<br>
+  </div>
+  <div class="race_block_race_info">
+    Category: {{race.race_cat.name}}<br>
+    UTMB Points: {{race.utmb_points}}<br>
+    Western States Qualifier? {{race.wser_qualifier}}
+  </div>
+  <div class="race_block_options">
+    {% if race.user_id == session.user_id %}
+    <a href="/race/edit/{{race.id}}">Edit</a> | <a href="/race/delete/{{race.id}}">Delete</a>
+    {% endif %}
+  </div>
+  <div style="clear:both;"> </div>
 </div>
 {% endfor %}
 {% endblock %}

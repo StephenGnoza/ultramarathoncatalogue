@@ -63,9 +63,9 @@ class RaceItem(Base):
     race_cat = relationship(RaceCat)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
-    state_id = Column(Integer, ForeignKey('state.name'))
+    state_id = Column(Integer, ForeignKey('state.id'))
     state = relationship(State)
-    month_id = Column(Integer, ForeignKey('month.name'))
+    month_id = Column(Integer, ForeignKey('month.id'))
     month = relationship(Month)
     race_website = Column(String(250))
 
