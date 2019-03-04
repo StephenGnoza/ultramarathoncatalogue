@@ -1,6 +1,21 @@
 {% extends "catalogue.html" %}
 {% block content %}
 <h2>{{ race.name}}</h2>
-{{ race.description }}
-{{ race.race_website }}
-{% endblock %}
+
+{% if race.user_id == session.user_id %}
+  <div class="racepage_edit">
+    <a href="/race/edit/{{race.id}}">Edit this info</a>
+  </div>
+{% endif %}
+
+<div class="racepage_main">
+  This {{race.race_cat.name}} race, {{race.name}} takes place in {{race.month.name}} in {{race.state.name}}.  It gives {{race.utmb_points}} points for UTMB.
+  {% if race.wser_qualifier=="Y" %} This race is a qualifier for Western States.{% endif %}
+  {% if race.wser_qualifier=="N" %} This race is not qualifier for Western States.{% endif %}
+
+  <h3>Description:</h3>
+  {{ race.description }}
+  <h3>Learn More:</h3>
+  Race Website: {{ race.race_website }}
+</div>
+  {% endblock %}

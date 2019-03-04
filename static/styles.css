@@ -165,3 +165,21 @@
 .white_link, .white_link:visited, .white_link:hover{
   color: white;
 }
+
+.racepage_edit{
+  clear:both;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: right;
+  float: right;
+}
+
+.racepage_main{
+  clear: both;
+}
+
+.racepage_main h3{
+  font-size: 24px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
