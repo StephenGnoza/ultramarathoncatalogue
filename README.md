@@ -16,7 +16,8 @@ The website is built using Python and a SQL database.
 
 # How to Run the program
 
-First, register a project on Google Cloud and create a client_secrets.json file.  Upload this to the project root.  Be sure to follow all instructions for setting up OATH2 on Google Cloud.
+First, register a project on Google Cloud and follow all instructions for setting up OAuth 2.0 Client ID and configure the OAuth consent screen.  Download the clients_secret.json file to the root of the program.
+(for Udacity review purposes, client_secrets.json included)
 
 Second, run database_setup.py to create the SQL database.
 
