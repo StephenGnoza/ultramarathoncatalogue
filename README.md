@@ -1,6 +1,14 @@
 # Project 2 - catalogue
 
-This website creates a catalogue for US Ultra marathons.  Users are authenticated by Google.  Registered users may add a race to a fixed set of categories and provide some information about those races.
+This website crates a catalogue for US Ultramarathons.  Functionality includes:
+<ul>
+<li>User accounts are created and authenticated via Google</li>
+<li>Registered users may add a race to predetermined categories.</li>
+<li>Registered users may edit their own races.</li>
+<li>Registered users may delete their own races.</li>
+<li>Races may be filtered by predetermined categories.</li>
+<li>Race data may be accessed by a JSON API</li>
+</ul>
 
 # Program design
 
@@ -29,6 +37,26 @@ python application.py
 ```
 
 and navigate to http://localhost:5000/ to visit the website.
+
+# JSON API
+
+List of all races:
+
+```sh
+http://localhost:5000/races/JSON
+``
+
+List of races within a category:
+
+```sh
+http://localhost:5000/racecat/<int:race_cat_id>/JSON
+``
+
+A particular race:
+
+```sh
+http://localhost:5000/race/<int:race_id>/JSON
+``
 
 # Author
 
