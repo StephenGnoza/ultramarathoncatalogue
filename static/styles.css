@@ -76,6 +76,10 @@
   color: white;
 }
 
+.nav_race_cat a, a:hover, a:visited{
+  color: white;
+}
+
 .navlink, .navlink:visited, .navlink:hover{
   color: white;
 }
