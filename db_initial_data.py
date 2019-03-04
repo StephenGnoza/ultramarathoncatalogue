@@ -45,7 +45,49 @@ states = [
     State(name="Arkansas"),
     State(name="California"),
     State(name="Colorado"),
-    State(name="Connceticut")
+    State(name="Connceticut"),
+    State(name="Delaware"),
+    State(name="Florida"),
+    State(name="Georgia"),
+    State(name="Hawaii"),
+    State(name="Idaho"),
+    State(name="Illinois"),
+    State(name="Indiana"),
+    State(name="Iowa"),
+    State(name="Kansas"),
+    State(name="Kentucky"),
+    State(name="Louisiana"),
+    State(name="Maine"),
+    State(name="Maryland"),
+    State(name="Massachusetts"),
+    State(name="Michigan"),
+    State(name="Minnesota"),
+    State(name="Mississippi"),
+    State(name="Missouri"),
+    State(name="Montana"),
+    State(name="Nebraska"),
+    State(name="Nevada"),
+    State(name="New Hampshire"),
+    State(name="New Jersey"),
+    State(name="New York"),
+    State(name="North Carolina"),
+    State(name="North Dakota"),
+    State(name="Ohio"),
+    State(name="Oklahoma"),
+    State(name="Oregon"),
+    State(name="Pennsylvania"),
+    State(name="Rhode Island"),
+    State(name="South Carolina"),
+    State(name="South Dakota"),
+    State(name="Tennessee"),
+    State(name="Texas"),
+    State(name="Utah"),
+    State(name="Vermont"),
+    State(name="Virginia"),
+    State(name="Washington"),
+    State(name="West Virginia"),
+    State(name="Wisconsin"),
+    State(name="Wyoming")
 ]
 session.bulk_save_objects(states)
 session.commit()
@@ -56,13 +98,12 @@ RaceCat = [
     RaceCat(name="60K - Trail", units="km", distance="60", terrain="trail" ),
     RaceCat(name="100K - Trail", units="km", distance="100", terrain="trail" ),
     RaceCat(name="50mi - Trail", units="mi", distance="50", terrain="trail" ),
-    RaceCat(name="100mi - Trail", units="mi", distance="100", terrain="trail" )
+    RaceCat(name="100mi - Trail", units="mi", distance="100", terrain="trail" ),
+    RaceCat(name="50K - Road", units="km", distance="50", terrain="road" ),
+    RaceCat(name="60K - Road", units="km", distance="60", terrain="road" ),
+    RaceCat(name="100K - Road", units="km", distance="100", terrain="road" ),
+    RaceCat(name="50mi - Road", units="mi", distance="50", terrain="road" ),
+    RaceCat(name="100mi - Road", units="mi", distance="100", terrain="road" )
 ]
 session.bulk_save_objects(RaceCat)
-session.commit()
-
-#add initial races
-NewRace = RaceItem(name="Black Canyon Ultras 100K", description="Run the trails in the beautiful Black Canyon of Arizona", utmb_points="3", wser_qualifier="Y", race_website="aravaiparunning.com",
-                    state_id="1", month_id="2", race_cat_id="3")
-session.add(NewRace)
 session.commit()
