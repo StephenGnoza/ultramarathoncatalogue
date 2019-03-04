@@ -235,7 +235,7 @@ def addRacePage():
         newItem = RaceItem(name=request.form['race_add_name'], race_cat_id=request.form['race_add_racecat'], race_website=request.form['race_add_race_website'], description=request.form['race_add_description'], utmb_points=request.form['race_add_utmbpoints'], wser_qualifier=request.form['race_add_wser'], month_id=request.form['race_add_month'], state_id=request.form['race_add_state'], user_id=login_session['user_id'])
         session.add(newItem)
         session.commit()
-        return redirect(url_for('RacePage', race_id=request.form['race_add_racecat']))
+        return redirect(url_for('RaceCatList', race_cat_id=request.form['race_add_racecat']))
     else:
         return render_template('race_add.html', months=months, states=states, racecats=racecats)
 
