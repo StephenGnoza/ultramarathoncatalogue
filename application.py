@@ -1,16 +1,17 @@
-#import for basic webpage, database
-from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response, flash
+# import for basic webpage, database
+from flask import Flask, render_template, request, redirect, url_for, jsonify,\
+    make_response, flash
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, User, State, Month, RaceCat, RaceItem
-#import for login
+# import for login
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 from flask import session as login_session
 import httplib2
 import random
 import string
-#import for json
+# import for json
 import json
 import requests
 
@@ -26,40 +27,47 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-#JSON API
-#all races
+
+# JSON API
+# all races
 @app.route('/races/JSON')
 def RacesJSON():
     races = session.query(RaceItem).all()
     return jsonify(RaceItem=[i.serialize for i in races])
 
-#particular race
+
+# particular race
 @app.route('/race/<int:race_id>/JSON')
 def RaceJSON(race_id):
     races = session.query(RaceItem).filter_by(id=race_id).all()
     return jsonify(RaceItem=[i.serialize for i in races])
 
-#particular category
+
+# particular category
 @app.route('/racecat/<int:race_cat_id>/JSON')
 def RaceCatJSON(race_cat_id):
     races = session.query(RaceItem).filter_by(race_cat_id=race_cat_id).all()
     return jsonify(RaceItem=[i.serialize for i in races])
+
 
 # Make queries likely needed for every route
 months = session.query(Month).order_by(Month.id)
 states = session.query(State).order_by(State.id)
 racecats = session.query(RaceCat).order_by(RaceCat.name)
 
-#Login Page
+
+# Login Page
 @app.route('/login')
 def LoginPage():
-    #create token
+    # create token
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
-    return render_template('login.html', months=months, states=states, racecats=racecats, STATE=state)
+    return render_template('login.html', months=months, states=states,
+                           racecats=racecats, STATE=state)
 
-#validate and get info from Google
+
+# validate and get info from Google
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     # Validate state token
@@ -112,8 +120,8 @@ def gconnect():
     stored_access_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'),
-                                 200)
+        response = make_response(json.dumps('Current user is already \
+                                            connected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -148,6 +156,7 @@ def gconnect():
     print "done!"
     return output
 
+
 # User Helper Functions
 def createUser(login_session):
     newUser = User(name=login_session['username'], email=login_session[
@@ -157,9 +166,11 @@ def createUser(login_session):
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
+
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user_id).one()
     return user
+
 
 def getUserID(email):
     try:
@@ -167,6 +178,7 @@ def getUserID(email):
         return user.id
     except:
         return None
+
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
 @app.route('/logout')
@@ -192,9 +204,9 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         races = session.query(RaceItem).all()
         return redirect(url_for('HomePage'))
-        #return response
     else:
-        response = make_response(json.dumps('Failed to revoke token for given user.', 400))
+        response = make_response(json.dumps('Failed to revoke token \
+                                 for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         del login_session['access_token']
         del login_session['gplus_id']
@@ -204,26 +216,34 @@ def gdisconnect():
         del login_session['user_id']
         return response
 
-#default page
+
+# default page
 @app.route('/')
 def HomePage():
     races = session.query(RaceItem).all()
-    return render_template('races_all.html', months=months, states=states, racecats=racecats, races=races)
+    return render_template('races_all.html', months=months, states=states,
+                           racecats=racecats, races=races)
 
-#list races by category
+
+# list races by category
 @app.route('/racecat/<int:race_cat_id>')
 def RaceCatList(race_cat_id):
     races = session.query(RaceItem).filter_by(race_cat_id=race_cat_id)
     racecat = session.query(RaceCat).filter_by(id=race_cat_id).one()
-    return render_template('races.html', months=months, states=states, racecats=racecats, races=races, racecat=racecat, race_cat_id=race_cat_id)
+    return render_template('races.html', months=months, states=states,
+                           racecats=racecats, races=races, racecat=racecat,
+                           race_cat_id=race_cat_id)
 
-#race page
+
+# race page
 @app.route('/race/<int:race_id>')
 def RacePage(race_id):
     race = session.query(RaceItem).filter_by(id=race_id).one()
-    return render_template('race.html', months=months, states=states, racecats=racecats, race=race)
+    return render_template('race.html', months=months, states=states,
+                           racecats=racecats, race=race)
 
-#add race
+
+# add race
 @app.route('/race/add', methods=['GET', 'POST'])
 def addRacePage():
     if 'username' not in login_session:
@@ -233,35 +253,51 @@ def addRacePage():
         if request.form['race_add_name'] == "":
             error = True
             error_msg = "You must enter a race name"
-            return render_template('race_add.html', months=months, states=states, racecats=racecats, error_msg=error_msg)
+            return render_template('race_add.html', months=months,
+                                   states=states, racecats=racecats,
+                                   error_msg=error_msg)
         if error is False:
-            newItem = RaceItem(name=request.form['race_add_name'], race_cat_id=request.form['race_add_racecat'], race_website=request.form['race_add_race_website'], description=request.form['race_add_description'], utmb_points=request.form['race_add_utmbpoints'], wser_qualifier=request.form['race_add_wser'], month_id=request.form['race_add_month'], state_id=request.form['race_add_state'], user_id=login_session['user_id'])
+            newItem = RaceItem(name=request.form['race_add_name'],
+                               race_cat_id=request.form['race_add_racecat'],
+                               race_website=request.form['race_add_race_web'],
+                               description=request.form['race_add_desc'],
+                               utmb_points=request.form['race_add_utmbpoints'],
+                               wser_qualifier=request.form['race_add_wser'],
+                               month_id=request.form['race_add_month'],
+                               state_id=request.form['race_add_state'],
+                               user_id=login_session['user_id'])
             session.add(newItem)
             session.commit()
-            return redirect(url_for('RaceCatList', race_cat_id=request.form['race_add_racecat']))
+            return redirect(url_for('RaceCatList',
+                            race_cat_id=request.form['race_add_racecat']))
     else:
-        return render_template('race_add.html', months=months, states=states, racecats=racecats)
+        return render_template('race_add.html', months=months, states=states,
+                               racecats=racecats)
 
-#edit race
+
+# edit race
 @app.route('/race/edit/<int:race_id>', methods=['GET', 'POST'])
 def editRacePage(race_id):
     race = session.query(RaceItem).filter_by(id=race_id).one()
     if 'username' not in login_session:
         return redirect('/login')
     if login_session['user_id'] != race.user_id:
-        return redirect(url_for('RacePage', race_id=race_id, error="edit_error"))
+        return redirect(url_for('RacePage', race_id=race_id,
+                        error="edit_error"))
     if request.method == 'POST':
         error = False
         if request.form['race_edit_name'] == "":
             error = True
             error_msg = "You must enter a race name"
-            return render_template('race_edit.html', months=months, states=states, racecats=racecats, race=race, error_msg=error_msg)
+            return render_template('race_edit.html', months=months,
+                                   states=states, racecats=racecats,
+                                   race=race, error_msg=error_msg)
         if error is False:
             editRace = session.query(RaceItem).filter_by(id=race_id).one()
             editRace.name = request.form['race_edit_name']
             editRace.race_cat_id = request.form['race_edit_racecat']
-            editRace.race_website = request.form['race_edit_race_website']
-            editRace.description = request.form['race_edit_description']
+            editRace.race_website = request.form['race_edit_race_web']
+            editRace.description = request.form['race_edit_desc']
             editRace.utmb_points = request.form['race_edit_utmbpoints']
             editRace.wser_qualifier = request.form['race_edit_wser']
             editRace.month_id = request.form['race_edit_month']
@@ -270,23 +306,27 @@ def editRacePage(race_id):
             session.commit()
             return redirect(url_for('RacePage', race_id=race_id))
     else:
-        return render_template('race_edit.html', months=months, states=states, racecats=racecats, race=race)
+        return render_template('race_edit.html', months=months,
+                               states=states, racecats=racecats, race=race)
 
-#delete race
+
+# delete race
 @app.route('/race/delete/<int:race_id>', methods=['GET', 'POST'])
 def deleteRacePage(race_id):
     race = session.query(RaceItem).filter_by(id=race_id).one()
     if 'username' not in login_session:
         return redirect('/login')
     if login_session['user_id'] != race.user_id:
-        return redirect(url_for('RaceCatList', race_cat_id=race.race_cat_id, error="delete_error"))
+        return redirect(url_for('RaceCatList', race_cat_id=race.race_cat_id,
+                        error="delete_error"))
     if request.method == 'POST':
         deleteRace = session.query(RaceItem).filter_by(id=race_id).one()
         session.delete(deleteRace)
         session.commit()
         return redirect(url_for('RaceCatList', race_cat_id=race.race_cat_id))
     else:
-        return render_template('race_delete.html', months=months, states=states, racecats=racecats, race=race)
+        return render_template('race_delete.html', months=months,
+                               states=states, racecats=racecats, race=race)
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
