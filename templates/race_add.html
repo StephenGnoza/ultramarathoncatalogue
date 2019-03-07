@@ -2,9 +2,15 @@
 {% block content %}
 <h2>Add New Race</h2>
 
+{% if error_msg %}
+<div class="error_msg">
+  {{error_msg}}
+</div>
+{% endif %}
+
 <form method="post">
     <div class="form_row">
-    Name: <input type="text" name="race_add_name">
+    Name: <input type="text" name="race_add_name"> (required)
     </div>
 
     <div class="form_row">
@@ -21,7 +27,8 @@
     </div>
 
     <div class="form_row">
-    Description: <textarea name="race_add_description" rows="8" cols="80"></textarea>
+    Description:<br>
+    <textarea name="race_add_description" rows="8" cols="80"></textarea>
     </div>
 
     <div class="form_row">
@@ -63,7 +70,7 @@
     </div>
 
     <div class="form_row">
-      <input type="submit" name="race_add_submit" value="Add Race">  
+      <input type="submit" name="race_add_submit" value="Add Race">
     </div>
 </form>
 
