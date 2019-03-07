@@ -13,17 +13,26 @@ This website crates a catalogue for US Ultramarathons.  Functionality includes:
 
 ## Installation
 
+
+### Clone Repository
 Clone this repo to your local machine using
 
 ```
 https://github.com/stephengnoza/ultramarathoncatalogue
 ```
 
-### Install Dependencies
+### Install Dependecies
+You'll need to install Flask, sqlalchemy, and oauth2client.
 
 ```
 pip install Flask
+```
+
+```
 pip install sqlalchemy
+```
+
+```
 pip install oauth2client
 ```
 
@@ -39,7 +48,7 @@ First, register a project on Google Cloud and follow all instructions for settin
 Second, run database_setup.py to create the SQL database.
 
 ```sh
-python database.py
+python database_setup.py
 ```
 
 Third, run db_initial_data.py to load the database with race distances and a list of US States.
