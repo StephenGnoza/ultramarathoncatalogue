@@ -251,18 +251,24 @@ def editRacePage(race_id):
     if login_session['user_id'] != race.user_id:
         return redirect(url_for('RacePage', race_id=race_id, error="edit_error"))
     if request.method == 'POST':
-        editRace = session.query(RaceItem).filter_by(id=race_id).one()
-        editRace.name = request.form['race_edit_name']
-        editRace.race_cat_id = request.form['race_edit_racecat']
-        editRace.race_website = request.form['race_edit_race_website']
-        editRace.description = request.form['race_edit_description']
-        editRace.utmb_points = request.form['race_edit_utmbpoints']
-        editRace.wser_qualifier = request.form['race_edit_wser']
-        editRace.month_id = request.form['race_edit_month']
-        editRace.state_id = request.form['race_edit_state']
-        session.add(editRace)
-        session.commit()
-        return redirect(url_for('RacePage', race_id=race_id))
+        error = False
+        if request.form['race_edit_name'] == "":
+            error = True
+            error_msg = "You must enter a race name"
+            return render_template('race_edit.html', months=months, states=states, racecats=racecats, race=race, error_msg=error_msg)
+        if error is False:
+            editRace = session.query(RaceItem).filter_by(id=race_id).one()
+            editRace.name = request.form['race_edit_name']
+            editRace.race_cat_id = request.form['race_edit_racecat']
+            editRace.race_website = request.form['race_edit_race_website']
+            editRace.description = request.form['race_edit_description']
+            editRace.utmb_points = request.form['race_edit_utmbpoints']
+            editRace.wser_qualifier = request.form['race_edit_wser']
+            editRace.month_id = request.form['race_edit_month']
+            editRace.state_id = request.form['race_edit_state']
+            session.add(editRace)
+            session.commit()
+            return redirect(url_for('RacePage', race_id=race_id))
     else:
         return render_template('race_edit.html', months=months, states=states, racecats=racecats, race=race)
 

@@ -2,9 +2,15 @@
 {% block content %}
 <h2>Edit {{race.name}}</h2>
 
+{% if error_msg %}
+<div class="error_msg">
+  {{error_msg}}
+</div>
+{% endif %}
+
 <form method="post">
     <div class="form_row">
-    Name: <input type="text" name="race_edit_name" value="{{race.name}}">
+    Name: <input type="text" name="race_edit_name" value="{{race.name}}"> (required)
     </div>
 
     <div class="form_row">
