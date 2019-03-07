@@ -1,5 +1,6 @@
 # Project 2 - catalogue
 
+## Overview
 This website crates a catalogue for US Ultramarathons.  Functionality includes:
 <ul>
 <li>User accounts are created and authenticated via Google</li>
@@ -10,11 +11,27 @@ This website crates a catalogue for US Ultramarathons.  Functionality includes:
 <li>Race data may be accessed by a JSON API</li>
 </ul>
 
-# Program design
+## Installation
+
+Clone this repo to your local machine using
+
+```
+https://github.com/stephengnoza/ultramarathoncatalogue
+```
+
+### Install Dependencies
+
+```
+pip install Flask
+pip install sqlalchemy
+pip install oauth2client
+```
+
+## Program design
 
 The website is built using Python and a SQL database.
 
-# How to Run the program
+## How to Run the program
 
 First, register a project on Google Cloud and follow all instructions for setting up OAuth 2.0 Client ID and configure the OAuth consent screen.  Download the clients_secret.json file to the root of the program.
 (for Udacity review purposes, client_secrets.json included)
@@ -39,7 +56,7 @@ python application.py
 
 and navigate to http://localhost:5000/ to visit the website.
 
-# JSON API
+## JSON API
 
 List of all races:
 
@@ -59,7 +76,7 @@ A particular race:
 http://localhost:5000/race/<int:race_id>/JSON
 ```
 
-# Author
+## Author
 
 Stephen Gnoza
 stephen.gnoza@gmail.com
