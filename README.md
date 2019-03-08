@@ -15,13 +15,13 @@ This website crates a catalogue for US Ultramarathons.  Functionality includes:
 
 
 ### Clone Repository
-Clone this repo to your local machine using
+Clone this repo to your local machine using a terminal program.
 
 ```
-https://github.com/stephengnoza/ultramarathoncatalogue
+git clone https://github.com/StephenGnoza/ultramarathoncatalogue
 ```
 
-### Install Dependecies
+### Install Dependencies
 You'll need to install Flask, sqlalchemy, and oauth2client.
 
 ```
