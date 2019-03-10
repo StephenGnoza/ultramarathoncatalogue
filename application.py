@@ -173,11 +173,8 @@ def getUserInfo(user_id):
 
 
 def getUserID(email):
-    try:
-        user = session.query(User).filter_by(email=email).one()
-        return user.id
-    except:
-        return None
+    user = session.query(User).filter_by(email=email).one()
+    return user.id
 
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
@@ -324,7 +321,7 @@ def editRacePage(race_id):
         # make sure that this name hasnt already been used by another race ID
         name_check = request.form['race_edit_name']
         race_names = session.query(RaceItem).\
-                         filter_by(name=name_check).all()
+            filter_by(name=name_check).all()
         for race_name in race_names:
 
             # error if race name is in use, but by another race ID
