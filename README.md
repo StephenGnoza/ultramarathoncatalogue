@@ -29,10 +29,6 @@ To install the required dependencies:
 pip install -r requirements.txt
 ```
 
-## Program design
-
-The website is built using Python and a SQL database.
-
 ## How to Run the program
 
 First, register a project on Google Cloud and follow all instructions for setting up OAuth 2.0 Client ID and configure the OAuth consent screen.  Download the clients_secret.json file to the root of the program.
