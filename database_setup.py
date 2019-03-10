@@ -5,7 +5,8 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
-#table to store user information
+
+# table to store user information
 class User(Base):
     __tablename__ = 'user'
 
@@ -14,21 +15,24 @@ class User(Base):
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
 
-#table to store list of US States
+
+# table to store list of US States
 class State(Base):
     __tablename__ = 'state'
 
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
 
-#table to store list of months
+
+# table to store list of months
 class Month(Base):
     __tablename__ = 'month'
 
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
 
-#table to store race categories
+
+# table to store race categories
 class RaceCat(Base):
     __tablename__ = 'race_cat'
 
@@ -38,7 +42,7 @@ class RaceCat(Base):
     distance = Column(Float)
     terrain = Column(String(250))
 
-    #JSON setup
+    # JSON setup
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
@@ -50,7 +54,8 @@ class RaceCat(Base):
             'terrain': self.terrain
         }
 
-#table to store individual races
+
+# table to store individual races
 class RaceItem(Base):
     __tablename__ = 'race_item'
 
@@ -69,7 +74,7 @@ class RaceItem(Base):
     month = relationship(Month)
     race_website = Column(String(250))
 
-    #JSON
+    # JSON
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
@@ -85,7 +90,8 @@ class RaceItem(Base):
             'month': self.month_id
         }
 
-#create db
+
+# create db
 engine = create_engine('sqlite:///ultramarathons.db')
 
 

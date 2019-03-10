@@ -233,7 +233,8 @@ def RaceCatList(race_cat_id):
     if racecat is None:
         error_msg = "No such category"
         return render_template('races_all.html', months=months, states=states,
-                           racecats=racecats, races=races, error_msg=error_msg)
+                               racecats=racecats, races=races,
+                               error_msg=error_msg)
     else:
         return render_template('races.html', months=months, states=states,
                                racecats=racecats, races=races, racecat=racecat,
@@ -247,7 +248,7 @@ def RacePage(race_id):
     if race is None:
         error_msg = "Race not found."
         return render_template('races_all.html', months=months, states=states,
-                           racecats=racecats, error_msg=error_msg)
+                               racecats=racecats, error_msg=error_msg)
     else:
         return render_template('race.html', months=months, states=states,
                                racecats=racecats, race=race)
@@ -280,7 +281,7 @@ def addRacePage():
                                        states=states, racecats=racecats,
                                        error_msg=error_msg)
 
-        #proceed if no errors
+        # proceed if no errors
         if error is False:
             newItem = RaceItem(name=request.form['race_add_name'],
                                race_cat_id=request.form['race_add_racecat'],
@@ -312,7 +313,7 @@ def editRacePage(race_id):
     if request.method == 'POST':
         error = False
 
-        #make sure that the race has a name
+        # make sure that the race has a name
         if request.form['race_edit_name'] == "":
             error = True
             error_msg = "You must enter a race name"
@@ -331,7 +332,7 @@ def editRacePage(race_id):
                                        states=states, racecats=racecats,
                                        error_msg=error_msg)
 
-        #proceed if no errors
+        # proceed if no errors
         if error is False:
             editRace = session.query(RaceItem).filter_by(id=race_id).one()
             editRace.name = request.form['race_edit_name']

@@ -19,7 +19,7 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-#add months
+# add months
 months = [
     Month(name="January"),
     Month(name="February"),
@@ -37,7 +37,7 @@ months = [
 session.bulk_save_objects(months)
 session.commit()
 
-#add months
+# add months
 states = [
     State(name="Alabama"),
     State(name="Alaska"),
@@ -92,18 +92,18 @@ states = [
 session.bulk_save_objects(states)
 session.commit()
 
-#add Race Categories
+# add Race Categories
 RaceCat = [
-    RaceCat(name="50K - Trail", units="km", distance="50", terrain="trail" ),
-    RaceCat(name="60K - Trail", units="km", distance="60", terrain="trail" ),
-    RaceCat(name="100K - Trail", units="km", distance="100", terrain="trail" ),
-    RaceCat(name="50mi - Trail", units="mi", distance="50", terrain="trail" ),
-    RaceCat(name="100mi - Trail", units="mi", distance="100", terrain="trail" ),
-    RaceCat(name="50K - Road", units="km", distance="50", terrain="road" ),
-    RaceCat(name="60K - Road", units="km", distance="60", terrain="road" ),
-    RaceCat(name="100K - Road", units="km", distance="100", terrain="road" ),
-    RaceCat(name="50mi - Road", units="mi", distance="50", terrain="road" ),
-    RaceCat(name="100mi - Road", units="mi", distance="100", terrain="road" )
+    RaceCat(name="50K - Trail", units="km", distance="50", terrain="trail"),
+    RaceCat(name="60K - Trail", units="km", distance="60", terrain="trail"),
+    RaceCat(name="100K - Trail", units="km", distance="100", terrain="trail"),
+    RaceCat(name="50mi - Trail", units="mi", distance="50", terrain="trail"),
+    RaceCat(name="100mi - Trail", units="mi", distance="100", terrain="trail"),
+    RaceCat(name="50K - Road", units="km", distance="50", terrain="road"),
+    RaceCat(name="60K - Road", units="km", distance="60", terrain="road"),
+    RaceCat(name="100K - Road", units="km", distance="100", terrain="road"),
+    RaceCat(name="50mi - Road", units="mi", distance="50", terrain="road"),
+    RaceCat(name="100mi - Road", units="mi", distance="100", terrain="road")
 ]
 session.bulk_save_objects(RaceCat)
 session.commit()
