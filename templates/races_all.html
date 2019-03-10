@@ -1,6 +1,13 @@
 {% extends "catalogue.html" %}
 {% block content %}
 <h2>All Races</h2>
+
+{% if error_msg %}
+<div class="error_msg">
+  {{error_msg}}
+</div>
+{% endif %}
+
 {% for race in races %}
 <div class="race_block">
   <div class="race_block_race_name">

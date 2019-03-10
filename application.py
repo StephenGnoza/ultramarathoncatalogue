@@ -229,18 +229,28 @@ def HomePage():
 @app.route('/racecat/<int:race_cat_id>')
 def RaceCatList(race_cat_id):
     races = session.query(RaceItem).filter_by(race_cat_id=race_cat_id)
-    racecat = session.query(RaceCat).filter_by(id=race_cat_id).one()
-    return render_template('races.html', months=months, states=states,
-                           racecats=racecats, races=races, racecat=racecat,
-                           race_cat_id=race_cat_id)
+    racecat = session.query(RaceCat).filter_by(id=race_cat_id).one_or_none()
+    if racecat is None:
+        error_msg = "No such category"
+        return render_template('races_all.html', months=months, states=states,
+                           racecats=racecats, races=races, error_msg=error_msg)
+    else:
+        return render_template('races.html', months=months, states=states,
+                               racecats=racecats, races=races, racecat=racecat,
+                               race_cat_id=race_cat_id)
 
 
 # race page
 @app.route('/race/<int:race_id>')
 def RacePage(race_id):
-    race = session.query(RaceItem).filter_by(id=race_id).one()
-    return render_template('race.html', months=months, states=states,
-                           racecats=racecats, race=race)
+    race = session.query(RaceItem).filter_by(id=race_id).one_or_none()
+    if race is None:
+        error_msg = "Race not found."
+        return render_template('races_all.html', months=months, states=states,
+                           racecats=racecats, error_msg=error_msg)
+    else:
+        return render_template('race.html', months=months, states=states,
+                               racecats=racecats, race=race)
 
 
 # add race
@@ -250,12 +260,27 @@ def addRacePage():
         return redirect('/login')
     if request.method == 'POST':
         error = False
+
+        # make sure that the race has a name
         if request.form['race_add_name'] == "":
             error = True
             error_msg = "You must enter a race name"
             return render_template('race_add.html', months=months,
                                    states=states, racecats=racecats,
                                    error_msg=error_msg)
+
+        # make sure that this name hasnt already been used
+        name_check = request.form['race_add_name']
+        race_names = session.query(RaceItem).filter_by(name=name_check).all()
+        for race_name in race_names:
+            if race_name.name == name_check:
+                error = False
+                error_msg = "There is already a race with this name"
+                return render_template('race_add.html', months=months,
+                                       states=states, racecats=racecats,
+                                       error_msg=error_msg)
+
+        #proceed if no errors
         if error is False:
             newItem = RaceItem(name=request.form['race_add_name'],
                                race_cat_id=request.form['race_add_racecat'],
@@ -286,12 +311,27 @@ def editRacePage(race_id):
                         error="edit_error"))
     if request.method == 'POST':
         error = False
+
+        #make sure that the race has a name
         if request.form['race_edit_name'] == "":
             error = True
             error_msg = "You must enter a race name"
             return render_template('race_edit.html', months=months,
                                    states=states, racecats=racecats,
                                    race=race, error_msg=error_msg)
+
+        # make sure that this name hasnt already been used
+        name_check = request.form['race_edit_name']
+        race_names = session.query(RaceItem).filter_by(name=name_check).all()
+        for race_name in race_names:
+            if race_name.name == name_check:
+                error = False
+                error_msg = "There is already a race with this name"
+                return render_template('race_edit.html', months=months,
+                                       states=states, racecats=racecats,
+                                       error_msg=error_msg)
+
+        #proceed if no errors
         if error is False:
             editRace = session.query(RaceItem).filter_by(id=race_id).one()
             editRace.name = request.form['race_edit_name']
@@ -327,6 +367,7 @@ def deleteRacePage(race_id):
     else:
         return render_template('race_delete.html', months=months,
                                states=states, racecats=racecats, race=race)
+
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
