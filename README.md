@@ -13,6 +13,7 @@ This website crates a catalogue for US Ultramarathons.  Functionality includes:
 
 ## Installation
 
+This application was built using Python 2.7.12.
 
 ### Clone Repository
 Clone this repo to your local machine using a terminal program.
@@ -22,18 +23,10 @@ git clone https://github.com/StephenGnoza/ultramarathoncatalogue
 ```
 
 ### Install Dependencies
-You'll need to install Flask, sqlalchemy, and oauth2client.
+To install the required dependencies:
 
 ```
-pip install Flask
-```
-
-```
-pip install sqlalchemy
-```
-
-```
-pip install oauth2client
+pip install -r requirements.txt
 ```
 
 ## Program design
