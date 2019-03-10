@@ -321,16 +321,19 @@ def editRacePage(race_id):
                                    states=states, racecats=racecats,
                                    race=race, error_msg=error_msg)
 
-        # make sure that this name hasnt already been used
+        # make sure that this name hasnt already been used by another race ID
         name_check = request.form['race_edit_name']
-        race_names = session.query(RaceItem).filter_by(name=name_check).all()
+        race_names = session.query(RaceItem).\
+                         filter_by(name=name_check).all()
         for race_name in race_names:
-            if race_name.name == name_check:
+
+            # error if race name is in use, but by another race ID
+            if race_name.name == name_check and race_name.id != race_id:
                 error = False
                 error_msg = "There is already a race with this name"
                 return render_template('race_edit.html', months=months,
                                        states=states, racecats=racecats,
-                                       error_msg=error_msg)
+                                       race=race, error_msg=error_msg)
 
         # proceed if no errors
         if error is False:
