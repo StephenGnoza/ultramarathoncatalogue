@@ -92,7 +92,7 @@ class RaceItem(Base):
 
 
 # create db
-engine = create_engine('sqlite:///ultramarathons.db')
+engine = create_engine('postgresql://catalog:catalog@localhost/ultramarathons')
 
 
 Base.metadata.create_all(engine)

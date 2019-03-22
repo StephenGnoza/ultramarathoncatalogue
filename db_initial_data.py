@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from database_setup import Base, User, State, Month, RaceCat, RaceItem
 
-engine = create_engine('sqlite:///ultramarathons.db')
+engine = create_engine('postgresql://catalog:catalog@localhost/ultramarathons')
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
