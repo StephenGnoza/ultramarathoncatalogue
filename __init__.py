@@ -63,7 +63,7 @@ def LoginPage():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
-    return render_template('login.html', months=months, states=states,
+    return render_template('login2.html', months=months, states=states,
                            racecats=racecats, STATE=state)
 
 
